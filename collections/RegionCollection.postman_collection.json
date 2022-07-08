@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "c718b3b2-90cb-4e74-98d8-c5b3694d11ef",
+		"name": "RegionCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear región",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var  data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_id_m\",data.id);\r",
+							"tests[\"No genera error en el crear para Region\"] = responseCode.code ===201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Mediterranea\",\r\n    \"culturasCulinarias\" : {},\r\n    \"paises\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll Regiones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error recuperando las regiones\"] = responseCode.code ===200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Id Region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);\r",
+							"var data = JSON.parse(responseBody);\r",
+							"tests[\"No genera error en el GET id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones/{{new_id_m}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Id Region Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No consulta id que no existe\"] = responseCode.code === 404;\r",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update de la Region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);\r",
+							"var data = JSON.parse(responseBody);\r",
+							"tests[\"No genera error en el PUT id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Mediterranea\",\r\n    \"culturasCulinarias\" : {},\r\n    \"paises\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones/{{new_id_m}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Region Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No actualiza id que no existe\"] = responseCode.code === 404;\r",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Mediterranea\",\r\n    \"culturasCulinarias\" : {},\r\n    \"paises\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el DELETE por id\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones/{{new_id_m}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Region Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No borra id que no existe\"] = responseCode.code === 404;\r",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/regiones/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

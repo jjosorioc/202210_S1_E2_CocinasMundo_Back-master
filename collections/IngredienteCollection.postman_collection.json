@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "c96ca041-aa5d-4a37-b083-770baf8e9a82",
+		"name": "IngredienteCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var  data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_i\",data.id);",
+							"tests[\"No genera error en el crear para Ingrediente\"] = responseCode.code ===201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Queso\",\n    \"categoria\": \"Lácteos\",\n    \"historia\": \"Uno de los mejores ingredientes del mundo entero\",\n    \"marcasRepresentativas\": \"Alpina;Finesse;Colanta;Don Fernando\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll ingredientes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error recuperando los Ingredientes\"] = responseCode.code ===200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  id  ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el GET id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes/{{new_id_i}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes",
+						"{{new_id_i}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  id ingrediente no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No consulta id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE de el ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el PUT id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Queso\",\n    \"categoria\": \"Lácteos\",\n    \"historia\": \"Uno de los mejores ingredientes del mundo entero\",\n    \"marcasRepresentativas\": \"Alpina;Finesse;Colanta;Don Fernando\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes/{{new_id_i}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes",
+						"{{new_id_i}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE  ingrediente inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No actualiza id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Queso\",\n    \"categoria\": \"Lácteos\",\n    \"historia\": \"Uno de los mejores ingredientes del mundo entero\",\n    \"marcasRepresentativas\": \"Alpina;Finesse;Colanta;Don Fernando\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE de el ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el DELETE por id\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes/{{new_id_i}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes",
+						"{{new_id_i}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ingrediente in existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No borra id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/ingredientes/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"ingredientes",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

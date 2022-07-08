@@ -1,0 +1,674 @@
+{
+	"info": {
+		"_postman_id": "1c6d2ac2-0458-4f45-b7d1-89a8bd666af2",
+		"name": "RegionCulturaCulinariaCollection",
+		"description": "Colección de pruebas sobre el recurso RegionCulturaCulinarias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_reg\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Mediterráneo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nCrea una nueva region. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una region 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_reg2\",data.id);",
+							"tests[\"Status code is 200\"] = responseCode.code === 201;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Latinoamericana\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nCrea otra region. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nEsta segunda region se utiliza para probar la petición que consultar todas las regiones\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cultura culinaria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cc\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreCultura\":\"Mediterránea\",\n    \"descripcionCultura\": \"Una increible mezcla de sabores amargos y salados,  que llevan al paladar en una aventura macedónica\",\n    \"calificacionCultura\": 5,\n    \"pais\": {},\n    \"region\": {}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/culturasculinarias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"culturasculinarias"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nCrea un nuevo cultura culinaria. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cultura culinaria 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cc2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreCultura\":\"Mediterránea2\",\n    \"descripcionCultura\": \"Una increible 2 mezcla de sabores amargos y salados,  que llevan al paladar en una aventura macedónica\",\n    \"calificacionCultura\": 4,\n    \"pais\": {},\n    \"region\": {}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/culturasculinarias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"culturasculinarias"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nCrea otro cultura culinaria. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\nEste segundo cultura culinaria se utiliza para probar la petición que consultar todos los cultura culinarias\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un cultura culinaria a una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}/culturasculinarias/{{new_id_cc}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}",
+						"culturasculinarias",
+						"{{new_id_cc}}"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nAsocia un cultura culinaria a una region en la aplicación. \r\n\r\nSe envía el Id de la region y el del cultura culinaria a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un cultura culinaria que no existe a una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No agrega un culturaCulinaria con un id de una cultura que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"No existe la cultura culinaria\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}/culturasculinarias/{{new_id_vacio}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}",
+						"culturasculinarias",
+						"{{new_id_vacio}}"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nAsocia un cultura culinaria que no existe a una region en la aplicación. \r\n\r\nSe envía el Id de la region y el del cultura culinaria a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /culturasCulinarias/0 no existe.\".\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las cultura culinarias de una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Region count with culturasCulinarias\"] = data.length >= 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}/culturasculinarias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}",
+						"culturasculinarias"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nConsulta los cultura culinarias de una region en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la region y el del cultura culinaria a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cultura culinaria de una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}/culturasculinarias/{{new_id_cc}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}",
+						"culturasculinarias",
+						"{{new_id_cc}}"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nConsulta un cultura culinaria de una region en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la region y del cultura culinaria a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cultura culinaria no asociada de una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No se puede obtener una cultura culinaria que no está asociada\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La region no está asociada con esa cultura culinaria\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg}}/culturasculinarias/{{new_id_cc}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg}}",
+						"culturasculinarias",
+						"{{new_id_cc}}"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nConsulta un cultura culinaria que no esta asociado a una region en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El cultura culinaria no está asociado a la region\".\r\n\r\n**Código http esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cultura culinaria que no existe de una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No se puede obtener un cultura culinaria que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"No existe la cultura culinaria que se busca\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg}}/culturasculinarias/{{new_id_vacio}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg}}",
+						"culturasculinarias",
+						"{{new_id_vacio}}"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nConsulta un cultura culinaria que no existe de una region en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar culturas culinarias a una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": {{new_id_cc}},\n        \"nombreCultura\":\"Mediterránea\",\n        \"descripcionCultura\": \"Una increible mezcla de sabores amargos y salados,  que llevan al paladar en una aventura macedónica\",\n        \"calificacionCultura\": 5,\n        \"pais\": {},\n        \"region\": {\"id\": {{new_id_reg}}}    \n    },\n    {\n        \"id\": {{new_id_cc2}},\n        \"nombreCultura\":\"Mediterránea2\",\n        \"descripcionCultura\": \"Una increible 2 mezcla de sabores amargos y salados,  que llevan al paladar en una aventura macedónica\",\n        \"calificacionCultura\": 4,\n        \"pais\": {},\n        \"region\": {\"id\": {{new_id_reg2}}}\n    }\n]"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}/culturasculinarias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}",
+						"culturasculinarias"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nActualiza la lista de cultura culinarias una region existente.\r\n\r\nSe envía el Id ne la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar culturas culinarias que no existen a una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No se pueden asociar lss culturas culinarias ya que estas no existen\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"No existe la cultura culinaria\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": 0,\n        \"nombreCultura\":\"Mediterránea2\",\n        \"descripcionCultura\": \"Una increible 2 mezcla de sabores amargos y salados,  que llevan al paladar en una aventura macedónica\",\n        \"calificacionCultura\": 4,\n        \"pais\": {},\n        \"region\": {\"id\": {{new_id_reg}}}\n    }\n]"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}/culturasculinarias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}",
+						"culturasculinarias"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nActualiza la lista de una region existente con cultura culinarias que no existen. \r\n\r\nSe envía el Id en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /culturasCulinarias/0 no existe.\".\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un cultura culinaria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/culturasculinarias/{{new_id_cc}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"culturasculinarias",
+						"{{new_id_cc}}"
+					]
+				},
+				"description": "**Release: Paso-5**\n\nBorra un cultura culinaria. Se envía el id del cultura culinaria creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un cultura culinaria 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/culturasculinarias/{{new_id_cc2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"culturasculinarias",
+						"{{new_id_cc2}}"
+					]
+				},
+				"description": "**Release: Paso-5**\n\nBorra un cultura culinaria. Se envía el id del cultura culinaria creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg}}"
+					]
+				},
+				"description": "**Release: Paso-5**\n\nBorra una region. Se envía el id de la region creada en la primera petición.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una region 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/regiones/{{new_id_reg2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"regiones",
+						"{{new_id_reg2}}"
+					]
+				},
+				"description": "**Release: Paso-5**\n\nBorra la region 2.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

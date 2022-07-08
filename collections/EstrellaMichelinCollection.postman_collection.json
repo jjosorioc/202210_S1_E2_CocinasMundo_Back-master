@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "5ec7f29b-481a-4922-a1a7-58708d0d42bf",
+		"name": "EstrellaMichelinCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CrearEstrellaMichelin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_id_r\",data.id);\r",
+							"tests[\"No genera error en el Post con datos correctos\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fechaEntrega\": null,\r\n    \"descripcion\":\"La descripcion de la estrella\",\r\n    \"tipoEstrella\": \"El tipo de estrella\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/estrellamichelin",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllEstrellasMichelin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error recuperando las Estrellas Michelin\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET id estrella michelin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);\r",
+							"var data = JSON.parse(responseBody);\r",
+							"tests[\"No genera error recuperando la id Estrellas Michelin\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin/{{new_id_r}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin",
+						"{{new_id_r}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET id estrella michelin que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No consulta id que no existe\"] = responseCode.code === 404;\r",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE de la estrella michelin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);\r",
+							"var dataa = JSON.parse(responseBody);\r",
+							"tests[\"No genera error en el PUT id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fechaEntrega\": null,\r\n    \"descripcion\":\"La descripcion del update de la estrella\",\r\n    \"tipoEstrella\": \"El tipo de estrella dentro del update de la estrella\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin/{{new_id_r}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin",
+						"{{new_id_r}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE estrella michelin inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No existe la id buscada.\"] = responseCode.code === 404;\r",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fechaEntrega\": null,\r\n    \"descripcion\":\"La descripcion del update de la estrella\",\r\n    \"tipoEstrella\": \"El tipo de estrella dentro del update de la estrella\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE de la estrella michelin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el DELETE por id\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin/{{new_id_r}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin",
+						"{{new_id_r}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE receta inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No borra id que no existe\"] = responseCode.code === 404;\r",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"no exite\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{puerto}}/api/estrellamichelin/{{new_id_vacio}}",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"estrellamichelin",
+						"{{new_id_vacio}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

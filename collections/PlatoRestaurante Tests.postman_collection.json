@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "21f577f5-cefd-45c8-9ac5-887b5281cf08",
+		"name": "PlatoRestaurante Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un Plato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_id_Plato_asociacion\", data.id);\r",
+							"\r",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombrePlato\": \"empanada\",\r\n    \"descripcionPlato\": \"El mejor plato del mundo, mejor que la empanada\",\r\n    \"precioDouble\": 85000,\r\n    \"culturaCulinaria\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Restaurante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_id_Restaurante_asociacion\", data.id);\r",
+							"\r",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombreRestaurante\": \"Doña Juana\",\r\n    \"direccionRestaurante\": \"Calle 26\",\r\n    \"estrellaMichelin\": {},\r\n    \"ciudad\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/restaurantes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"restaurantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Restaurante 2.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_id_Restaurante_asociacion2\", data.id);\r",
+							"\r",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombreRestaurante\": \"Doña Juana Copia 2.0\",\r\n    \"direccionRestaurante\": \"Calle 200\",\r\n    \"estrellaMichelin\": {},\r\n    \"ciudad\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/restaurantes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"restaurantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar el restaurante con el plato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos/{{new_id_Plato_asociacion}}/restaurantes/{{new_id_Restaurante_asociacion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos",
+						"{{new_id_Plato_asociacion}}",
+						"restaurantes",
+						"{{new_id_Restaurante_asociacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error al agregar un restaurante repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Genera error en el Post\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos/{{new_id_Plato_asociacion}}/restaurantes/{{new_id_Restaurante_asociacion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos",
+						"{{new_id_Plato_asociacion}}",
+						"restaurantes",
+						"{{new_id_Restaurante_asociacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener restaurante de un plato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(responseBody);\r",
+							"var data = JSON.parse(responseBody);\r",
+							"tests[\"no genera error en el Get\"] = responseCode.code ===200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos/{{new_id_Plato_asociacion}}/restaurantes/{{new_id_Restaurante_asociacion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos",
+						"{{new_id_Plato_asociacion}}",
+						"restaurantes",
+						"{{new_id_Restaurante_asociacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener restaurante que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No debería obtener el restaurante ya que el restaurante no existe.\"] = responseCode.code ===404;\r",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"No se encontró el restaurante\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos/{{new_id_Plato_asociacion}}/restaurantes/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos",
+						"{{new_id_Plato_asociacion}}",
+						"restaurantes",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Restaurantes de plato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n    \"nombreRestaurante\": \"Doña Juana Copia 2.0\",\r\n    \"direccionRestaurante\": \"Calle 200\",\r\n    \"estrellaMichelin\": {},\r\n    \"ciudad\": {},\r\n    \"id\": {{new_id_Restaurante_asociacion2}}\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos/{{new_id_Plato_asociacion}}/restaurantes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos",
+						"{{new_id_Plato_asociacion}}",
+						"restaurantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE restaurante de plato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"No genera error en el DELETE\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/api/platos/{{new_id_Plato_asociacion}}/restaurantes/{{new_id_Restaurante_asociacion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"platos",
+						"{{new_id_Plato_asociacion}}",
+						"restaurantes",
+						"{{new_id_Restaurante_asociacion}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
